@@ -1,0 +1,8 @@
+[package]
+name = "ros"
+version = "0.1.0"
+authors = ["Hajime Fukuda <hajime.fukuda@me.com>"]
+edition = "2018"
+
+[dependencies]
+bootloader = "0.6.0"
