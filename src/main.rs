@@ -2,21 +2,24 @@
 #![no_main]
 #![feature(asm)]
 
-use core::panic::PanicInfo;
+extern crate volatile;
+#[macro_use]
+extern crate lazy_static;
+extern crate spin;
 
 mod utils;
+mod vga_buffer;
 
-static HELLO: &[u8] = b"Hello World!";
+use core::panic::PanicInfo;
+use vga_buffer::WRITER;
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    let vga_buffer = 0xb8000 as *mut u8;
-
-    for (i, &byte) in HELLO.iter().enumerate() {
-        unsafe {
-            *vga_buffer.offset(i as isize * 2) = byte;
-            *vga_buffer.offset(i as isize * 2 + 1) = i as _;
-        }
+    println!("Hello, world!");
+    println!("こんにちは、世界!");
+    println!("drink 🍺!");
+    for i in 0..23 {
+        println!("i: {}", i);
     }
 
     utils::halt_cpu()
