@@ -1,7 +1,10 @@
 #![no_std]
 #![no_main]
+#![feature(asm)]
 
 use core::panic::PanicInfo;
+
+mod utils;
 
 static HELLO: &[u8] = b"Hello World!";
 
@@ -12,11 +15,11 @@ pub extern "C" fn _start() -> ! {
     for (i, &byte) in HELLO.iter().enumerate() {
         unsafe {
             *vga_buffer.offset(i as isize * 2) = byte;
-            *vga_buffer.offset(i as isize * 2 + 1) = 0xb;
+            *vga_buffer.offset(i as isize * 2 + 1) = i as _;
         }
     }
 
-    loop {}
+    utils::halt_cpu()
 }
 
 #[panic_handler]
