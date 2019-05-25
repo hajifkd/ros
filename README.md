@@ -18,7 +18,7 @@ cargo xrun
 ```json
 {
     "rust.target": "x86_64-ros.json",
-    "rust.sysroot": "project_root/sysroot"
+    "rust.sysroot": "PROJECT_ROOT/target/sysroot"
 }
 ```
 
