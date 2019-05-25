@@ -11,6 +11,17 @@ cargo install bootimage
 cargo xrun
 ```
 
+## VSCode settings
+
+.vscode/settings.json should be something like
+
+```json
+{
+    "rust.target": "x86_64-ros.json",
+    "rust.sysroot": "project_root/sysroot"
+}
+```
+
 # (Other) Useful links
 
 [OSDev](https://wiki.osdev.org)
