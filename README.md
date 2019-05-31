@@ -5,8 +5,12 @@ A tiny OS based on https://os.phil-opp.com
 # How to build and run
 
 ```
+rustup component add llvm-tools-preview
+rustup component add rust-src
 cargo install cargo-xbuild
 cargo install bootimage
+# Probably, one should first build the bootloader
+bootimage build
 # PATH to QEMU is to be set
 cargo xrun
 ```
