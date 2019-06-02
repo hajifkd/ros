@@ -2,8 +2,10 @@
 #![no_main]
 #![feature(asm)]
 #![feature(custom_test_frameworks)]
+#![feature(abi_x86_interrupt)]
 #![test_runner(crate::test_runner)]
 #![reexport_test_harness_main = "test_main"]
+#![allow(const_err)]
 
 extern crate volatile;
 #[macro_use]
@@ -12,20 +14,24 @@ extern crate spin;
 
 mod utils;
 mod vga_buffer;
+mod interrupts;
 
 #[cfg(test)]
 mod serial;
 
 use core::panic::PanicInfo;
 
+pub fn init() {
+    interrupts::init_idt();
+}
+
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
+    init();
+
     println!("Hello, world!");
+    x86_64::instructions::interrupts::int3();
     println!("こんにちは、世界!");
-    println!("drink 🍺!");
-    for i in 0..23 {
-        println!("i: {}", i);
-    }
 
     #[cfg(test)]
     {
