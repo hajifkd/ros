@@ -6,6 +6,7 @@ lazy_static! {
     static ref IDT: InterruptDescriptorTable = {
         let mut idt = InterruptDescriptorTable::new();
         idt.breakpoint.set_handler_fn(breakpoint_handler);
+        idt.divide_by_zero.set_handler_fn(zero_division_handler);
         idt
     };
 }
@@ -16,4 +17,8 @@ pub fn init_idt() {
 
 extern "x86-interrupt" fn breakpoint_handler(stack_frame: &mut InterruptStackFrame) {
     println!("EXCEPTION: BREAKPOINT\n{:#?}", stack_frame);
+}
+
+extern "x86-interrupt" fn zero_division_handler(stack_frame: &mut InterruptStackFrame) {
+    println!("EXCEPTION: ZERO DIVISION\n{:#?}", stack_frame);
 }
