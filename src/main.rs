@@ -20,10 +20,11 @@ pub extern "C" fn _start() -> ! {
     x86_64::instructions::interrupts::int3();
     println!("こんにちは、世界!");
 
-    unsafe {
-        *(0xdeadbeef as *mut i32) = 5;
+    fn stack_overflow() {
+        stack_overflow();
     }
 
+    stack_overflow();
     #[cfg(test)]
     {
         test_main();

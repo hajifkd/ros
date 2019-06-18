@@ -11,6 +11,7 @@ extern crate volatile;
 extern crate lazy_static;
 extern crate spin;
 
+pub mod gdt;
 pub mod interrupts;
 pub mod utils;
 pub mod vga_buffer;
@@ -21,6 +22,7 @@ mod serial;
 use core::panic::PanicInfo;
 
 pub fn init() {
+    gdt::init();
     interrupts::init_idt();
 }
 
